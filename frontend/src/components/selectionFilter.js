@@ -10,7 +10,6 @@ function SelectionFilter () {
 
             }}><option>Ascending</option><option>Descending</option></select>
         </div>
-
     )
 }
 
