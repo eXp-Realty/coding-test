@@ -1,6 +1,6 @@
 import {React} from 'react';
 
-function SelectionFilter () {
+function SelectionFilter (props) {
 
     
     return (

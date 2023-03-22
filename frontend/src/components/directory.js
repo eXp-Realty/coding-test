@@ -11,7 +11,7 @@ import '../App.css'
 const Directory = () => {
     const [data, setData] = useState([])
         const [editAgent, setEditAgent] = useState(false)
-    const [selectedAgent, setSelectedAgent] = useState({})
+    var [selectedAgent, setSelectedAgent] = useState({})
     const [updateAgentInfo, setUpdateAgentInfo] = useState({name:'', forwardingNumber:'',  email:'', index:''})
 
 
@@ -35,21 +35,6 @@ const Directory = () => {
     useEffect(() => {
         getAgents()
     },[])
-
-    const updateAgent = async(ag, index) => {
-        setSelectedAgent(ag), selectedAgent.sid = index
-                setEditAgent(!editAgent)
-    }
-
-    const updateAgentFunc = () => {
-        data[selectedAgent.sid].name = updateAgentInfo.name
-            data[selectedAgent.sid].email = updateAgentInfo.email
-        data[selectedAgent.sid].forwarding_number = updateAgentInfo.forwardingNumber
-        window.localStorage.setItem("data", JSON.stringify(data))
-        setEditAgent(false)
-        const newData = localStorage.getItem('data')
-        setData(JSON.parse(newData))
-    }
     
         return (
             <div style={{
@@ -59,7 +44,7 @@ const Directory = () => {
             }}>
                 <div style={{ overflowX:'hidden', color:'black' }}>
                     <div style={{fontWeight:"Bolder", fontSize:'17px', padding:'40px'}}> Agent Directory</div>
-                    <SelectionFilter/>
+                            <SelectionFilter/>
                     <div style={{position:'absolute'}}onClick={() => {
                         setData({})
                     }}><button>Clear Agents</button></div>
@@ -96,45 +81,39 @@ const Directory = () => {
                     )}
                     <Table >
                         <TableHead>
-                            <TableRow>
-                                <TableCell style={{color:'black !imoprtant'}}>Extension</TableCell>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Number</TableCell>
-                                <TableCell>State</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell></TableCell>
-                            </TableRow>
+                                <TableRow>
+                                    <TableCell style={{color:'black !imoprtant'}}>Extension</TableCell>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Number</TableCell>
+                                    <TableCell>State</TableCell>
+                                    <TableCell>Email</TableCell>
+                                </TableRow>
                         </TableHead>
                         {data ? (
                             <TableBody>
                                 {data.map((ag, index) => (
                                     <TableRow key={index}>
-                                        <TableCell>
-                                            {ag.extension}
-                                        </TableCell>
+                                    <TableCell>
+                                        {ag.extension}
+                                    </TableCell>
                                         <TableCell>
                                             {ag.name}
                                         </TableCell>
-                                        <TableCell>
-                                            {ag.forwarding_number}
-                                        </TableCell>
+                                    <TableCell>
+                                        {ag.forwarding_number}
+                                    </TableCell>
                                         <TableCell>
                                             {ag.state}
                                         </TableCell>
                                         <TableCell>
                                             {ag.email.name}
                                         </TableCell>
-                                        <TableCell>
-                                            <div className="editAgent" onClick={() => {
-                                                updateAgent(ag, index)
-                                            }}></div>
-                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
-                        ) : (
-                            <div>No Content</div>
-                        )}
+                ) : (
+                    <div>No Content</div>
+                )}
                     </Table>
                 </div>
             </div>
